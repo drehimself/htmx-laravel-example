@@ -7,6 +7,7 @@
     <title>Contact Form</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous" defer></script>
 </head>
 
 <body>
@@ -32,8 +33,15 @@
         <section class="bg-white dark:bg-gray-900">
             <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Contact Us</h2>
+                <div id="response"></div>
 
-                <form action="/contact" class="space-y-8" method="POST">
+                <form
+                      action="/contact"
+                      class="space-y-8"
+                      method="POST"
+                      hx-post="/api/contact"
+                      hx-target="#response"
+                      hx-swap="innerHTML">
                     @csrf
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>

@@ -7,6 +7,7 @@
     <title>Users</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous" defer></script>
 </head>
 
 <body>
@@ -36,7 +37,12 @@
 
                 <div id="response"></div>
                 <div class="grid grid-cols-2 gap-12">
-                    <form action="/users" method="POST">
+                    <form
+                          action="/users"
+                          method="POST"
+                          hx-post="/api/users"
+                          hx-target="#response"
+                          hx-swap="innerHTML">
                         @csrf
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Name</label>
@@ -57,7 +63,7 @@
                     </form>
 
                     <div>
-                        <ul class="list-disc list-inside space-y-2">
+                        <ul class="list-disc list-inside space-y-2" id="users">
                             @foreach ($users as $user)
                                 <li>{{ $user->name }}: {{ $user->email }}</li>
                             @endforeach
